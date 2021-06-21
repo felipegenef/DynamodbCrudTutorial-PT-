@@ -1,0 +1,22 @@
+{
+  "name": "dynamodb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "dynamodb-localhost": "^0.0.9",
+    "dynamoose": "^2.7.3",
+    "express": "^4.17.1",
+    "local-dynamo": "^0.6.0",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
