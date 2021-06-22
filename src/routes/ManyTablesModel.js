@@ -1,35 +1,25 @@
-const User = require("../models/User");
 const express = require("express");
 const server = express.Router();
-server.post("/createUser", async (req, res) => {
-  const { login, password } = req.body;
-  try {
-    const user = await User.create({
-      login,
-      password,
-    });
-    res.send(user);
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-server.get("/FindAllUsers", async (req, res) => {
-  try {
-    let user = await User.scan().exec();
-    user = await User.scan().exec();
-    console.log(user);
-    res.send({
-      users: user.toJSON(),
-      timesScanned: user.timesScanned,
-      //quantos documentos batem com a condição
-      count: user.count,
-      //quantos documentos foram lidos
-      scannedCount: user.scannedCount,
-      lastKey: user.lastKey,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-});
+const createQueries = require("./ManyTablesModel/CreateQueries");
+const getQueries = require("./ManyTablesModel/getQueries");
+const deleteQueries = require("./ManyTablesModel/deleteQueries");
+const updateQueries = require("./ManyTablesModel/updateQueries");
+//                Insert
+server.post("/createUser", createQueries.createUser);
+server.post("/createUsers", createQueries.createUsers);
+//                Select
+server.get("/FindAllUsers", getQueries.findAll);
+server.get("/FindById", getQueries.findById);
+//                Update
+server.put("/addAge", updateQueries.addAge);
+server.put("/removeName", updateQueries.removeName);
+server.put("/setName", updateQueries.setName);
+server.put("/updateCPF", updateQueries.updateCPF);
+server.put("/updateLogin", updateQueries.updateLogin);
+server.put("/updateName", updateQueries.updateName);
+server.put("/updatePassword", updateQueries.updatePassword);
+server.put("/updatePhone", updateQueries.updatePhone);
+//                Delete
+server.delete("/:id", deleteQueries.deleteUser);
+server.delete("/deleteUsers", deleteQueries.deleteUsers);
 module.exports = server;

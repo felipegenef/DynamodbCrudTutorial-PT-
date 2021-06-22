@@ -1,35 +1,25 @@
-const User = require("../models/UserOneTableModel");
 const express = require("express");
 const server = express.Router();
-
-server.post("/createUser", async (req, res) => {
-  const { login, password } = req.body;
-  try {
-    const user = await User.create({
-      login,
-      password,
-    });
-    console.log(user);
-    res.send(user);
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-server.get("/FindAllUsers", async (req, res) => {
-  try {
-    const user = await User.query("table").eq("Users").exec();
-    res.send({
-      users: user.toJSON(),
-      timesQueried: user.timesQueried,
-      //quantos documentos batem com a condição
-      count: user.count,
-      //quantos documentos foram lidos
-      queriedCount: user.queriedCount,
-      lastKey: user.lastKey,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-});
+const createQueries = require("./OneTableModel/CreateQueries");
+const getQueries = require("./OneTableModel/getQueries");
+const deleteQueries = require("./OneTableModel/deleteQueries");
+const updateQueries = require("./OneTableModel/updateQueries");
+//                Insert
+server.post("/createUser", createQueries.createUser);
+server.post("/createUsers", createQueries.createUsers);
+//                Select
+server.get("/FindAllUsers", getQueries.findAll);
+server.get("/FindById", getQueries.findById);
+//                Update
+server.put("/addAge", updateQueries.addAge);
+server.put("/removeName", updateQueries.removeName);
+server.put("/setName", updateQueries.setName);
+server.put("/updateCPF", updateQueries.updateCPF);
+server.put("/updateLogin", updateQueries.updateLogin);
+server.put("/updateName", updateQueries.updateName);
+server.put("/updatePassword", updateQueries.updatePassword);
+server.put("/updatePhone", updateQueries.updatePhone);
+//                Delete
+server.delete("/:id", deleteQueries.deleteUser);
+server.delete("/deleteUsers", deleteQueries.deleteUsers);
 module.exports = server;

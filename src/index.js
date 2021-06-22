@@ -10,6 +10,7 @@ server.use(morgan("dev"));
 server.use(express.json());
 
 server.use("/OneTableModel", OneTableModel);
+
 server.use("/ManyTableModel", ManyTableModel);
 
 //               SERVER                     //
