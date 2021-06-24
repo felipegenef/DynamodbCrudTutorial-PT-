@@ -8,7 +8,7 @@
 
 Para utilizar o DynamoDB e fazer querys existem muitas maneiras de modelar seus dados, porém vou me utilizar de somente dois modelos: Um com **uma tabela por entidade**, o que se assimila mais aos meios mais comuns de modelagem de dados(SQL) , e **outro com somente uma tabela por projeto**, **utilizando da chave da partição(PK) para identificar a entidade do dado persistido e a chave de ordenação(SK) para identificar o id do dado persistido.**
 
-Este ultimo exemplo é amplamente utilizado pela comunidade para modelagemd e dados no dynamoDB , porém é importante enfatizar que **uma partição pode ter ate 10GB de dados**, portanto, cada entidade poderá ter no máximo 10GB de dados antes de que seja necessário a migração para o primeiro modelo.
+Este ultimo exemplo é amplamente utilizado pela comunidade para modelagem de dados no dynamoDB , porém é importante enfatizar que **uma partição pode ter ate 10GB de dados**, portanto, cada entidade poderá ter no máximo 10GB de dados antes de que seja necessário a migração para o primeiro modelo.
 
 Para ambos os exemplos estaremos realizando todos os processos de CRUD com o **ORM Dynamoose**.
 
