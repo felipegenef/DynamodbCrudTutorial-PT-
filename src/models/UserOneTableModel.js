@@ -19,7 +19,7 @@ const userSchema = new dynamoose.Schema(
       default: uuidv4,
     },
     name: String,
-
+    age: Number,
     login: {
       type: String,
       required: true,

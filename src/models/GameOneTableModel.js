@@ -1,5 +1,6 @@
 const dynamoose = require("dynamoose");
 const User = require("./UserOneTableModel");
+const { v4: uuidv4 } = require("uuid");
 const gameSchema = new dynamoose.Schema({
   // By default the hashKey will be the first key in the Schema object.
   //hashKey is commonly called a partition key in the AWS documentation.
@@ -17,7 +18,8 @@ const gameSchema = new dynamoose.Schema({
     rangeKey: true,
     default: uuidv4,
   },
+  name: { type: String, required: true },
   state: String,
-  user: User,
+  user: { type: Array, schema: [User] },
 });
 module.exports = dynamoose.model("ProjectNameTable", gameSchema);

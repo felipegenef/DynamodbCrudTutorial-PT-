@@ -16,6 +16,7 @@ const userSchema = new dynamoose.Schema(
       set: (value) => `${value.toLowerCase().trim()}`,
     },
     name: String,
+    age: Number,
     cpf: String,
     phone: String,
     password: { type: String, required: true },
