@@ -4,27 +4,29 @@
 
 <img class="icon" width="50px" height="50px" src="https://amazon-dynamodb-labs.com/images/Amazon-DynamoDB.png"/>
 
+
+
 # Introdução
 
-Para utilizar o DynamoDB e fazer querys existem muitas maneiras de modelar seus dados, porém vou me utilizar de somente dois modelos: Um com **uma tabela por entidade**, o que se assimila mais aos meios mais comuns de modelagem de dados(SQL) , e **outro com somente uma tabela por projeto**, **utilizando da chave da partição(PK) para identificar a entidade do dado persistido e a chave de ordenação(SK) para identificar o id do dado persistido.**
+Para utilizar o DynamoDB e fazer querys existem muitas maneiras de modelar seus dados, porém vou me utilizar de somente dois modelos: Um com **uma tabela por entidade**, o que se assimila mais aos meios mais comuns de modelagem de dados(SQL) , e **outro com somente uma tabela por projeto**, **utilizando da chave da partição(PK) para identificar a entidade do dado persistido e a chave de ordenação(SK) para identificar o id do dado persistido.** 
 
-Este ultimo exemplo é amplamente utilizado pela comunidade para modelagem de dados no dynamoDB , porém é importante enfatizar que **uma partição pode ter ate 10GB de dados**, portanto, cada entidade poderá ter no máximo 10GB de dados antes de que seja necessário a migração para o primeiro modelo.
+Este ultimo exemplo é amplamente utilizado pela comunidade para modelagemd e dados no dynamoDB , porém é importante enfatizar que **uma partição pode ter ate 10GB de dados**, portanto, cada entidade poderá ter no máximo 10GB de dados antes de que seja necessário a migração para o primeiro modelo.
 
 Para ambos os exemplos estaremos realizando todos os processos de CRUD com o **ORM Dynamoose**.
 
 # Baixar dynamoDB Local
 
-1. Va no site da amazon e baixe o arquivo
+1) Va no site da amazon e baixe o arquivo
 
 [Implantar o DynamoDB localmente em seu computador](https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
 
-2. dentro do arquivo baixado e ja extraido digite
+2) dentro do arquivo baixado e ja extraido digite
 
 ```jsx
-java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb -port 4567
+java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb -port 4567 
 ```
 
-3. coloque o seguinte codigo para rodar seu dynamodbLocal
+3) coloque o seguinte codigo para rodar seu dynamodbLocal
 
 ```jsx
 const dynamoose = require("dynamoose");
@@ -185,6 +187,7 @@ module.exports = dynamoose.model("ProjectNameTable", gameSchema);
 ### Criando um usuário(Uma tabela por projeto)
 
 ```jsx
+
 async function createUser(req, res) {
   const { login, password, cpf, name, phone, age } = req.body;
   try {
@@ -308,6 +311,7 @@ async function createGames(req, res) {
 ### Criando um usuário(Uma entidade por tabela)
 
 ```jsx
+
 async function createUser(req, res) {
   const { login, password, cpf, name, phone, age } = req.body;
   try {
@@ -330,6 +334,7 @@ async function createUser(req, res) {
 ### Criando um Game(Uma entidade por tabela)
 
 ```jsx
+
 async function createGame(req, res) {
   const { state, user, name } = req.body;
   //user={id:id}
@@ -534,7 +539,7 @@ async function deleteUsers(req, res) {
 
 ## Update por ID(Uma entidade por tabela)
 
-modifica o nome do usuário
+modifica o nome do usuário 
 
 ```jsx
 async function updateName(req, res) {
@@ -551,7 +556,7 @@ async function updateName(req, res) {
 
 ## Update por ID(Uma tabela por projeto)
 
-modifica o nome do usuário
+modifica o nome do usuário 
 
 ```jsx
 async function updateName(req, res) {
@@ -571,7 +576,7 @@ async function updateName(req, res) {
 muda o nome do usuário encontrado para Bob
 
 ```jsx
-async function setName(req, res) {
+ async function setName(req, res) {
   try {
     const { id } = req.body;
     const user = await User.update({ id }, { $SET: { name: "Bob" } });
@@ -606,10 +611,10 @@ async function setName(req, res) {
 
 ## $ADD(Uma entidade por tabela)
 
-Adiciona 32 na idade
+Adiciona 32 na idade 
 
 ```jsx
-async function addAge(req, res) {
+ async function addAge(req, res) {
   try {
     const { id } = req.body;
     const user = await User.update({ id }, { $ADD: { age: 32 } });
@@ -623,7 +628,7 @@ async function addAge(req, res) {
 
 ## $ADD(Uma tabela por projeto)
 
-Adiciona 32 na idade
+Adiciona 32 na idade 
 
 ```jsx
 async function addAge(req, res) {
@@ -644,10 +649,10 @@ async function addAge(req, res) {
 
 ## $REMOVE(Uma entidade por tabela)
 
-deleta o atributo name do usuário
+deleta o atributo  name do usuário
 
 ```jsx
-async function removeName(req, res) {
+ async function removeName(req, res) {
   try {
     const { id } = req.body;
     const user = await User.update({ id }, { $REMOVE: ["name"] });
@@ -661,7 +666,7 @@ async function removeName(req, res) {
 
 ## $REMOVE(Uma tabela por projeto)
 
-deleta o atributo name do usuário
+deleta o atributo  name do usuário
 
 ```jsx
 async function removeName(req, res) {
@@ -903,6 +908,7 @@ async function OrderByExample(req, res) {
 ### Pegando todos os usuários
 
 ```jsx
+
 async function AllExample(req, res) {
   try {
     const user = await User.query("table").eq("Users").all().exec();
@@ -948,6 +954,7 @@ async function ContainsExample(req, res) {
     return res.status(500).send(error);
   }
 }
+
 ```
 
 ### Contains(Uma entidade por tabela)
@@ -1350,8 +1357,8 @@ async function BetweenExample(req, res) {
 
 ## Português
 
-[felipegenef/DynamooseQuerysDocumentation](https://github.com/felipegenef/DynamooseQuerysDocumentation)
+[felipegenef/DynamodbCrudTutorial-PT-](https://github.com/felipegenef/DynamodbCrudTutorial-PT-)
 
 ## English
 
-[]()
+[felipegenef/DynamodbCrudTutorial-ENG-](https://github.com/felipegenef/DynamodbCrudTutorial-ENG-)
